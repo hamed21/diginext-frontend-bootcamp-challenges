@@ -10,7 +10,16 @@
  *
  */
 function flatten(object) {
-  // TODO: Implement here
+    let myObj ={...object}
+    let key = []
+
+    while (typeof myObj=== 'object'){
+        key.push(Object.keys(myObj)[0])
+        myObj = Object.values(myObj)[0]
+    }
+    key = key.join('.')
+
+    return {[key]: myObj}
 }
 
 /**
@@ -24,5 +33,13 @@ function flatten(object) {
  *
  */
 function revertFlatten(object) {
-  // TODO: Implement here
+    const entries = Object.entries(object).flat()
+    let result = entries[1]
+
+    entries[0].split('.').reverse().forEach(item => {
+        result = {[item]: result}
+    })
+
+    return result
+
 }
