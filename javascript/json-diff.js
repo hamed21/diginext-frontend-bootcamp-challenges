@@ -9,8 +9,32 @@
  * @returns diff object.
  */
 function jsonDiff(oldObject, newObject) {
-  // TODO: Implement here
+    let type
+
+    let result = {}
+    for (let key in oldObject) {
+        if (newObject[key]===undefined){
+            type = 'removed'
+            result[key] = {type , oldValue: oldObject[key]}
+            delete newObject[key]
+        }else if (newObject[key]!==undefined&&(newObject[key] !== oldObject[key])){
+            type = 'modified'
+            result[key] = {type , oldValue: oldObject[key], newValue: newObject[key]}
+            delete newObject[key]
+        }else if (newObject[key]&&(newObject[key] === oldObject[key])){
+            delete newObject[key]
+        }
+    }
+
+    for (let key in newObject){
+        result[key] = {type:'added', newValue: newObject[key]}
+    }
+
+
+
+    return result
 }
+
 
 // {
 //     "key1": {
