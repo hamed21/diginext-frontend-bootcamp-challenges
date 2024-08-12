@@ -7,5 +7,17 @@
  * @returns An Literal exact copy of the arg
  */
 function deepClone(arg) {
-  // TODO: Implement here
+    if (arg === null || typeof arg !== 'object') {
+        return arg;
+    }
+
+    let copy = Array.isArray(arg) ? [] : {};
+
+    for (let key in arg) {
+        if (arg.hasOwnProperty(key)) {
+            copy[key] = deepClone(arg[key]);
+        }
+    }
+
+    return copy;
 }
