@@ -8,9 +8,28 @@
  * @returns {function}
  */
 function throttle(callback, n, p) {
-  // TODO: Implement here
-}
+    let callCount = 0
+    let firstCallTime = null
 
+    return function (...args){
+        const now = Date.now()
+
+        if (firstCallTime === null){
+            firstCallTime = now
+        }
+
+        if (now -firstCallTime < p){
+            if (callCount < n){
+                callCount++
+                callback(...args)
+            }
+        }else {
+            firstCallTime= now
+            callCount=1
+            callback(...args)
+        }
+    }
+}
 /**
  * Level 2
  *
@@ -30,3 +49,5 @@ function throttle(callback, n, p) {
 function advancedThrottle(callback, n, p, blockTime, exponent) {
   // TODO: Implement here
 }
+
+

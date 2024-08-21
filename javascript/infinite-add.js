@@ -3,13 +3,16 @@
  * The result of the last call should be parsable as both number or string.
  * Use case: No use case. Just sth fun :)))))
  */
-function add() {
-  // TODO: Implement here
+function add(...args) {
+    let result = args.reduce((acc, curr) => acc + curr, 0);
+
+    function innerAdd (...nextArgs) {
+        result += nextArgs.reduce((acc,curr)=> acc+curr,0)
+        return innerAdd
+    }
+    innerAdd.valueOf = () => result;;
+
+
+    return innerAdd
 }
 
-// Call Examples
-// add(1, 2);
-// add(1, 2)(3);
-// add(1, 2)(3)(4, 5);
-// add(1, 2)(3)(4, 5)(6);
-// add(1, 2)(3)(4, 5)(6)(7, 8, 9);
